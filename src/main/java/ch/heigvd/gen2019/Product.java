@@ -35,4 +35,59 @@ public class Product {
     public String getCurrency() {
         return currency;
     }
+
+    private String getSizeFor() {
+        switch (getSize()) {
+            case 1:
+                return "XS";
+            case 2:
+                return "S";
+            case 3:
+                return "M";
+            case 4:
+                return "L";
+            case 5:
+                return "XL";
+            case 6:
+                return "XXL";
+            default:
+                return "Invalid Size";
+        }
+    }
+
+    private String getColorFor() {
+        switch (getColor()) {
+            case 1:
+                return "blue";
+            case 2:
+                return "red";
+            case 3:
+                return "yellow";
+            default:
+                return "no color";
+        }
+    }
+
+    public void getProductContent(StringBuffer sb) {
+        sb.append("{");
+        sb.append("\"code\": \"");
+        sb.append(getCode());
+        sb.append("\", ");
+        sb.append("\"color\": \"");
+        sb.append(getColorFor());
+        sb.append("\", ");
+
+        if (getSize() != SIZE_NOT_APPLICABLE) {
+            sb.append("\"size\": \"");
+            sb.append(getSizeFor());
+            sb.append("\", ");
+        }
+
+        sb.append("\"price\": ");
+        sb.append(getPrice());
+        sb.append(", ");
+        sb.append("\"currency\": \"");
+        sb.append(getCurrency());
+        sb.append("\"}, ");
+    }
 }
