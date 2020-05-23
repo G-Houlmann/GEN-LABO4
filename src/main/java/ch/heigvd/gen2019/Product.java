@@ -30,12 +30,12 @@ public class Product {
         return price.getCurrency();
     }
 
-    public void getProductContent(StringBuffer sb){
+    public void getProductContent(StringBuilder sb){
         new ProductWriter().getProductContent(sb);
     }
 
     private class ProductWriter{
-        public void getProductContent(StringBuffer sb) {
+        public void getProductContent(StringBuilder sb) {
 
             sb.append("{");
 
@@ -55,7 +55,7 @@ public class Product {
             sb.append("\"}, ");
         }
 
-        private void getProperty(StringBuffer sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
+        private void getProperty(StringBuilder sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
             sb.append("\"");
             sb.append(propertyName);
             sb.append("\": ");

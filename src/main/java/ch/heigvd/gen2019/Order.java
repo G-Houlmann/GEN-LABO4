@@ -27,14 +27,14 @@ public class Order {
         products.add(product);
     }
 
-    public void getOrderContent(StringBuffer sb) {
+    public void getOrderContent(StringBuilder sb) {
         new OrderWriter().getOrderContent(sb);
     }
 
 
     private class OrderWriter {
 
-        public void getOrderContent(StringBuffer sb) {
+        public void getOrderContent(StringBuilder sb) {
             getOrderContentPrelude(sb);
 
             for (int j = 0; j < getProductsCount(); j++) {
@@ -44,7 +44,7 @@ public class Order {
             getOrderContentPostlude(sb);
         }
 
-        private void getOrderContentPostlude(StringBuffer sb) {
+        private void getOrderContentPostlude(StringBuilder sb) {
             if (getProductsCount() > 0) {
                 sb.delete(sb.length() - 2, sb.length());
             }
@@ -53,7 +53,7 @@ public class Order {
             sb.append("}, ");
         }
 
-        private void getOrderContentPrelude(StringBuffer sb) {
+        private void getOrderContentPrelude(StringBuilder sb) {
             sb.append("{");
             sb.append("\"id\": ");
             sb.append(getOrderId());
