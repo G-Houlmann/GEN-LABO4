@@ -28,29 +28,37 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        getOrderContentPrelude(sb);
-
-        for (int j = 0; j < getProductsCount(); j++) {
-            getProduct(j).getProductContent(sb);
-        }
-
-        if (getProductsCount() > 0) {
-            sb.delete(sb.length() - 2, sb.length());
-        }
-
-        getOrderContentPostlude(sb);
+        OrderStringBuilder.getOrderContent(sb, this);
     }
 
-    private void getOrderContentPostlude(StringBuffer sb){
-        sb.append("]");
-        sb.append("}, ");
-    }
 
-    private void getOrderContentPrelude(StringBuffer sb) {
-        sb.append("{");
-        sb.append("\"id\": ");
-        sb.append(getOrderId());
-        sb.append(", ");
-        sb.append("\"products\": [");
+    private static class OrderStringBuilder {
+
+        public static void getOrderContent(StringBuffer sb, Order order) {
+            getOrderContentPrelude(sb, order);
+
+            for (int j = 0; j < order.getProductsCount(); j++) {
+                order.getProduct(j).getProductContent(sb);
+            }
+
+            getOrderContentPostlude(sb, order);
+        }
+
+        private static void getOrderContentPostlude(StringBuffer sb, Order order) {
+            if (order.getProductsCount() > 0) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+
+            sb.append("]");
+            sb.append("}, ");
+        }
+
+        private static void getOrderContentPrelude(StringBuffer sb, Order order) {
+            sb.append("{");
+            sb.append("\"id\": ");
+            sb.append(order.getOrderId());
+            sb.append(", ");
+            sb.append("\"products\": [");
+        }
     }
 }
