@@ -7,7 +7,7 @@ public enum Size {
     L("L"),
     XL("XL"),
     XXL("XXL"),
-    NO_SIZE("Invalid size");
+    SIZE_NOT_APPLICABLE("Invalid size");
 
     private String size;
     Size(String size){

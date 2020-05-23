@@ -32,26 +32,42 @@ public class Product {
         return currency;
     }
 
-    public void getProductContent(StringBuffer sb) {
-        sb.append("{");
-        sb.append("\"code\": \"");
-        sb.append(getCode());
-        sb.append("\", ");
-        sb.append("\"color\": \"");
-        sb.append(color);
-        sb.append("\", ");
+    public void getProductContent(StringBuffer sb){
+        ProductWriter writer = new ProductWriter();
+        writer.getProductContent(sb);
+    }
 
-        if (getSize() != Size.NO_SIZE) {
-            sb.append("\"size\": \"");
-            sb.append(getSize());
-            sb.append("\", ");
+    private class ProductWriter{
+        public void getProductContent(StringBuffer sb) {
+
+            sb.append("{");
+
+            getProperty(sb, "code", getCode(), true);
+            getProperty(sb, "color", color.toString(), true);
+
+
+            if (size != Size.SIZE_NOT_APPLICABLE) {
+                getProperty(sb, "size", size.toString(), true);
+            }
+
+            getProperty(sb, "price", Double.toString(getPrice()), false);
+            getProperty(sb, "currency", getCurrency(), true);
+
+
+            sb.delete(sb.length() - 3, sb.length());
+            sb.append("\"}, ");
         }
 
-        sb.append("\"price\": ");
-        sb.append(getPrice());
-        sb.append(", ");
-        sb.append("\"currency\": \"");
-        sb.append(getCurrency());
-        sb.append("\"}, ");
+        private void getProperty(StringBuffer sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
+            sb.append("\"");
+            sb.append(propertyName);
+            sb.append("\": ");
+            if(surroundValueWithQuotes) sb.append("\"");
+            sb.append(propertyValue);
+            if(surroundValueWithQuotes) sb.append("\"");
+            sb.append(", ");
+        }
     }
+
+
 }
