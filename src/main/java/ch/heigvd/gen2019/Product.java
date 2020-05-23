@@ -69,8 +69,7 @@ public class Product {
     }
 
     public void getProductContent(StringBuffer sb){
-        ProductWriter writer = new ProductWriter();
-        writer.getProductContent(sb);
+        new ProductWriter().getProductContent(sb);
     }
 
     private class ProductWriter{
