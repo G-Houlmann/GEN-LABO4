@@ -28,20 +28,38 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        sb.append("{");
-        sb.append("\"id\": ");
-        sb.append(getOrderId());
-        sb.append(", ");
-        sb.append("\"products\": [");
-        for (int j = 0; j < getProductsCount(); j++) {
-            getProduct(j).getProductContent(sb);
+        OrderWriter writer = new OrderWriter();
+        writer.getOrderContent(sb);
+    }
+
+
+    private class OrderWriter {
+
+        public void getOrderContent(StringBuffer sb) {
+            getOrderContentPrelude(sb);
+
+            for (int j = 0; j < getProductsCount(); j++) {
+                getProduct(j).getProductContent(sb);
+            }
+
+            getOrderContentPostlude(sb);
         }
 
-        if (getProductsCount() > 0) {
-            sb.delete(sb.length() - 2, sb.length());
+        private void getOrderContentPostlude(StringBuffer sb) {
+            if (getProductsCount() > 0) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+
+            sb.append("]");
+            sb.append("}, ");
         }
 
-        sb.append("]");
-        sb.append("}, ");
+        private void getOrderContentPrelude(StringBuffer sb) {
+            sb.append("{");
+            sb.append("\"id\": ");
+            sb.append(getOrderId());
+            sb.append(", ");
+            sb.append("\"products\": [");
+        }
     }
 }

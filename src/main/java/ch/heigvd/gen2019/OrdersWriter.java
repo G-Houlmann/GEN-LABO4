@@ -8,13 +8,20 @@ public class OrdersWriter {
     }
 
     public String getContents() {
-        StringBuffer sb = new StringBuffer("{\"orders\": [");
+        StringBuffer sb = getContentsPrelude();
 
         for (int i = 0; i < orders.getOrdersCount(); i++) {
             orders.getOrder(i).getOrderContent(sb);
         }
 
+        return getContentsPostlude(sb);
+    }
 
+    private StringBuffer getContentsPrelude() {
+        return new StringBuffer("{\"orders\": [");
+    }
+
+    private String getContentsPostlude(StringBuffer sb) {
         if (orders.getOrdersCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());
         }
