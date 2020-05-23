@@ -28,11 +28,11 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        OrderStringBuilder.getOrderContent(sb, this);
+        OrderWriter.getOrderContent(sb, this);
     }
 
 
-    private static class OrderStringBuilder {
+    private static class OrderWriter {
 
         public static void getOrderContent(StringBuffer sb, Order order) {
             getOrderContentPrelude(sb, order);
