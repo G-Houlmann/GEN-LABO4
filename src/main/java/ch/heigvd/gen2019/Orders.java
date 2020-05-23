@@ -17,4 +17,39 @@ public class Orders {
     public Order getOrder(int i) {
         return orders.get(i);
     }
+
+    public String getContents(){
+        return new OrdersWriter().getContents();
+    }
+
+    private class OrdersWriter {
+
+        public OrdersWriter() {
+
+        }
+
+        public String getContents() {
+            StringBuilder sb = getContentsPrelude();
+
+            for (int i = 0; i < getOrdersCount(); i++) {
+                getOrder(i).getOrderContent(sb);
+            }
+
+            return getContentsPostlude(sb).toString();
+        }
+
+        private StringBuilder getContentsPrelude() {
+            return new StringBuilder("{\"orders\": [");
+        }
+
+        private StringBuilder getContentsPostlude(StringBuilder sb) {
+            if (getOrdersCount() > 0) {
+                sb.delete(sb.length() - 2, sb.length());
+            }
+
+            return sb.append("]}");
+        }
+
+    }
+
 }
