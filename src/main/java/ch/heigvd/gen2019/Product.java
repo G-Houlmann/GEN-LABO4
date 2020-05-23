@@ -68,33 +68,42 @@ public class Product {
         }
     }
 
-    public void getProductContent(StringBuffer sb) {
+    public void getProductContent(StringBuffer sb){
+        ProductWriter writer = new ProductWriter();
+        writer.getProductContent(sb);
+    }
 
-        sb.append("{");
+    private class ProductWriter{
+        public void getProductContent(StringBuffer sb) {
 
-        getProperty(sb, "code", getCode(), true);
-        getProperty(sb, "color", getColorFor(), true);
+            sb.append("{");
+
+            getProperty(sb, "code", getCode(), true);
+            getProperty(sb, "color", getColorFor(), true);
 
 
-        if (getSize() != SIZE_NOT_APPLICABLE) {
-            getProperty(sb, "size", getSizeFor(), true);
+            if (getSize() != SIZE_NOT_APPLICABLE) {
+                getProperty(sb, "size", getSizeFor(), true);
+            }
+
+            getProperty(sb, "price", Double.toString(getPrice()), false);
+            getProperty(sb, "currency", getCurrency(), true);
+
+
+            sb.delete(sb.length() - 3, sb.length());
+            sb.append("\"}, ");
         }
 
-        getProperty(sb, "price", Double.toString(getPrice()), false);
-        getProperty(sb, "currency", getCurrency(), true);
-
-
-        sb.delete(sb.length() - 3, sb.length());
-        sb.append("\"}, ");
+        private void getProperty(StringBuffer sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
+            sb.append("\"");
+            sb.append(propertyName);
+            sb.append("\": ");
+            if(surroundValueWithQuotes) sb.append("\"");
+            sb.append(propertyValue);
+            if(surroundValueWithQuotes) sb.append("\"");
+            sb.append(", ");
+        }
     }
 
-    private void getProperty(StringBuffer sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
-        sb.append("\"");
-        sb.append(propertyName);
-        sb.append("\": ");
-        if(surroundValueWithQuotes) sb.append("\"");
-        sb.append(propertyValue);
-        if(surroundValueWithQuotes) sb.append("\"");
-        sb.append(", ");
-    }
+
 }

@@ -28,24 +28,25 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        OrderWriter.getOrderContent(sb, this);
+        OrderWriter writer = new OrderWriter();
+        writer.getOrderContent(sb);
     }
 
 
-    private static class OrderWriter {
+    private class OrderWriter {
 
-        public static void getOrderContent(StringBuffer sb, Order order) {
-            getOrderContentPrelude(sb, order);
+        public void getOrderContent(StringBuffer sb) {
+            getOrderContentPrelude(sb);
 
-            for (int j = 0; j < order.getProductsCount(); j++) {
-                order.getProduct(j).getProductContent(sb);
+            for (int j = 0; j < getProductsCount(); j++) {
+                getProduct(j).getProductContent(sb);
             }
 
-            getOrderContentPostlude(sb, order);
+            getOrderContentPostlude(sb);
         }
 
-        private static void getOrderContentPostlude(StringBuffer sb, Order order) {
-            if (order.getProductsCount() > 0) {
+        private void getOrderContentPostlude(StringBuffer sb) {
+            if (getProductsCount() > 0) {
                 sb.delete(sb.length() - 2, sb.length());
             }
 
@@ -53,10 +54,10 @@ public class Order {
             sb.append("}, ");
         }
 
-        private static void getOrderContentPrelude(StringBuffer sb, Order order) {
+        private void getOrderContentPrelude(StringBuffer sb) {
             sb.append("{");
             sb.append("\"id\": ");
-            sb.append(order.getOrderId());
+            sb.append(getOrderId());
             sb.append(", ");
             sb.append("\"products\": [");
         }
