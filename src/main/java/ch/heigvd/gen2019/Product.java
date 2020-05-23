@@ -1,7 +1,6 @@
 package ch.heigvd.gen2019;
 
 public class Product {
-    public static final int SIZE_NOT_APPLICABLE = -1;
     private String code;
     private Color color;
     private Size size;
@@ -43,7 +42,7 @@ public class Product {
             getProperty(sb, "color", color.toString(), true);
 
 
-            if (size != Size.SIZE_NOT_APPLICABLE) {
+            if (getSize() != Size.SIZE_NOT_APPLICABLE) {
                 getProperty(sb, "size", size.toString(), true);
             }
 
