@@ -28,11 +28,8 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        sb.append("{");
-        sb.append("\"id\": ");
-        sb.append(getOrderId());
-        sb.append(", ");
-        sb.append("\"products\": [");
+        getOrderContentPrelude(sb);
+
         for (int j = 0; j < getProductsCount(); j++) {
             getProduct(j).getProductContent(sb);
         }
@@ -41,7 +38,19 @@ public class Order {
             sb.delete(sb.length() - 2, sb.length());
         }
 
+        getOrderContentPostlude(sb);
+    }
+
+    private void getOrderContentPostlude(StringBuffer sb){
         sb.append("]");
         sb.append("}, ");
+    }
+
+    private void getOrderContentPrelude(StringBuffer sb) {
+        sb.append("{");
+        sb.append("\"id\": ");
+        sb.append(getOrderId());
+        sb.append(", ");
+        sb.append("\"products\": [");
     }
 }
