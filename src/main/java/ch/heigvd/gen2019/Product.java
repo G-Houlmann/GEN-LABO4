@@ -3,12 +3,12 @@ package ch.heigvd.gen2019;
 public class Product {
     public static final int SIZE_NOT_APPLICABLE = -1;
     private String code;
-    private int color;
-    private int size;
+    private Color color;
+    private Size size;
     private double price;
     private String currency;
 
-    public Product(String code, int color, int size, double price, String currency) {
+    public Product(String code, Color color, Size size, double price, String currency) {
         this.code = code;
         this.color = color;
         this.size = size;
@@ -20,11 +20,7 @@ public class Product {
         return code;
     }
 
-    public int getColor() {
-        return color;
-    }
-
-    public int getSize() {
+    public Size getSize() {
         return size;
     }
 
@@ -34,38 +30,6 @@ public class Product {
 
     public String getCurrency() {
         return currency;
-    }
-
-    private String getSizeFor() {
-        switch (getSize()) {
-            case 1:
-                return "XS";
-            case 2:
-                return "S";
-            case 3:
-                return "M";
-            case 4:
-                return "L";
-            case 5:
-                return "XL";
-            case 6:
-                return "XXL";
-            default:
-                return "Invalid Size";
-        }
-    }
-
-    private String getColorFor() {
-        switch (getColor()) {
-            case 1:
-                return "blue";
-            case 2:
-                return "red";
-            case 3:
-                return "yellow";
-            default:
-                return "no color";
-        }
     }
 
     public void getProductContent(StringBuffer sb){
@@ -79,11 +43,11 @@ public class Product {
             sb.append("{");
 
             getProperty(sb, "code", getCode(), true);
-            getProperty(sb, "color", getColorFor(), true);
+            getProperty(sb, "color", color.toString(), true);
 
 
-            if (getSize() != SIZE_NOT_APPLICABLE) {
-                getProperty(sb, "size", getSizeFor(), true);
+            if (size != Size.SIZE_NOT_APPLICABLE) {
+                getProperty(sb, "size", size.toString(), true);
             }
 
             getProperty(sb, "price", Double.toString(getPrice()), false);
