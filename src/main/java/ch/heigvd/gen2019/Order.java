@@ -28,8 +28,7 @@ public class Order {
     }
 
     public void getOrderContent(StringBuffer sb) {
-        OrderWriter writer = new OrderWriter();
-        writer.getOrderContent(sb);
+        new OrderWriter().getOrderContent(sb);
     }
 
 

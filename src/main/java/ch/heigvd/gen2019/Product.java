@@ -5,15 +5,13 @@ public class Product {
     private String code;
     private Color color;
     private Size size;
-    private double price;
-    private String currency;
+    private Price price;
 
-    public Product(String code, Color color, Size size, double price, String currency) {
+    public Product(String code, Color color, Size size, Price price) {
         this.code = code;
         this.color = color;
         this.size = size;
         this.price = price;
-        this.currency = currency;
     }
 
     public String getCode() {
@@ -25,16 +23,15 @@ public class Product {
     }
 
     public double getPrice() {
-        return price;
+        return price.getAmount();
     }
 
     public String getCurrency() {
-        return currency;
+        return price.getCurrency();
     }
 
     public void getProductContent(StringBuffer sb){
-        ProductWriter writer = new ProductWriter();
-        writer.getProductContent(sb);
+        new ProductWriter().getProductContent(sb);
     }
 
     private class ProductWriter{
