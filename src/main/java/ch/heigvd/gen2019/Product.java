@@ -69,25 +69,32 @@ public class Product {
     }
 
     public void getProductContent(StringBuffer sb) {
+
         sb.append("{");
-        sb.append("\"code\": \"");
-        sb.append(getCode());
-        sb.append("\", ");
-        sb.append("\"color\": \"");
-        sb.append(getColorFor());
-        sb.append("\", ");
+
+        getProperty(sb, "code", getCode(), true);
+        getProperty(sb, "color", getColorFor(), true);
+
 
         if (getSize() != SIZE_NOT_APPLICABLE) {
-            sb.append("\"size\": \"");
-            sb.append(getSizeFor());
-            sb.append("\", ");
+            getProperty(sb, "size", getSizeFor(), true);
         }
 
-        sb.append("\"price\": ");
-        sb.append(getPrice());
-        sb.append(", ");
-        sb.append("\"currency\": \"");
-        sb.append(getCurrency());
+        getProperty(sb, "price", Double.toString(getPrice()), false);
+        getProperty(sb, "currency", getCurrency(), true);
+
+
+        sb.delete(sb.length() - 3, sb.length());
         sb.append("\"}, ");
+    }
+
+    private void getProperty(StringBuffer sb, String propertyName, String propertyValue, boolean surroundValueWithQuotes){
+        sb.append("\"");
+        sb.append(propertyName);
+        sb.append("\": ");
+        if(surroundValueWithQuotes) sb.append("\"");
+        sb.append(propertyValue);
+        if(surroundValueWithQuotes) sb.append("\"");
+        sb.append(", ");
     }
 }
