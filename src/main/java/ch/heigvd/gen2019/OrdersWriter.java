@@ -11,8 +11,10 @@ public class OrdersWriter {
         StringBuffer sb = new StringBuffer("{\"orders\": [");
 
         for (int i = 0; i < orders.getOrdersCount(); i++) {
-            getOrderContent(sb, i);
+            Order order = orders.getOrder(i);
+            getOrderContent(sb, order);
         }
+
 
         if (orders.getOrdersCount() > 0) {
             sb.delete(sb.length() - 2, sb.length());
@@ -21,8 +23,7 @@ public class OrdersWriter {
         return sb.append("]}").toString();
     }
 
-    private void getOrderContent(StringBuffer sb, int i) {
-        Order order = orders.getOrder(i);
+    private void getOrderContent(StringBuffer sb, Order order) {
         sb.append("{");
         sb.append("\"id\": ");
         sb.append(order.getOrderId());
