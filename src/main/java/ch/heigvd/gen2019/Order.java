@@ -51,16 +51,13 @@ public class Order {
                 sb.delete(sb.length() - 2, sb.length());
             }
 
-            sb.append("]");
-            sb.append("}, ");
+            sb.append("]}, ");
         }
 
         private void getOrderContentPrelude(StringBuilder sb) {
-            sb.append("{");
-            sb.append("\"id\": ");
+            sb.append("{\"id\": ");
             sb.append(getOrderId());
-            sb.append(", ");
-            sb.append("\"products\": [");
+            sb.append(", \"products\": [");
         }
     }
 }
