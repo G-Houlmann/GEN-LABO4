@@ -28,13 +28,14 @@ public class Order {
     }
 
     public void getOrderContent(StringBuilder sb) {
-        new OrderWriter().getOrderContent(sb);
+        sb.append(new OrderWriter().getContent());
     }
 
 
-    private class OrderWriter {
+    private class OrderWriter implements StringWriter {
 
-        public void getOrderContent(StringBuilder sb) {
+        public String getContent() {
+            StringBuilder sb = new StringBuilder();
             getOrderContentPrelude(sb);
 
             for (int j = 0; j < getProductsCount(); j++) {
@@ -42,6 +43,7 @@ public class Order {
             }
 
             getOrderContentPostlude(sb);
+            return sb.toString();
         }
 
         private void getOrderContentPostlude(StringBuilder sb) {

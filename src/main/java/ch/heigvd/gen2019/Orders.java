@@ -19,16 +19,12 @@ public class Orders {
     }
 
     public String getContents(){
-        return new OrdersWriter().getContents();
+        return new OrdersWriter().getContent();
     }
 
-    private class OrdersWriter {
+    private class OrdersWriter implements StringWriter {
 
-        public OrdersWriter() {
-
-        }
-
-        public String getContents() {
+        public String getContent() {
             StringBuilder sb = getContentsPrelude();
 
             for (int i = 0; i < getOrdersCount(); i++) {

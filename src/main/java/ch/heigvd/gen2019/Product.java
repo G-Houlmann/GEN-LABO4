@@ -30,12 +30,13 @@ public class Product {
     }
 
     public void getProductContent(StringBuilder sb){
-        new ProductWriter().getProductContent(sb);
+
+        sb.append(new ProductWriter().getContent());
     }
 
-    private class ProductWriter{
-        public void getProductContent(StringBuilder sb) {
-
+    private class ProductWriter implements StringWriter {
+        public String getContent() {
+            StringBuilder sb = new StringBuilder();
             getProductPrelude(sb);
 
             getProperty(sb, "code", getCode(), true);
@@ -50,6 +51,7 @@ public class Product {
             getProperty(sb, "currency", getCurrency(), true);
 
             getProductPostlude(sb);
+            return sb.toString();
         }
 
         private void getProductPostlude(StringBuilder sb) {
